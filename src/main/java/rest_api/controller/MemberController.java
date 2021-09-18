@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rest_api.model.Member;
@@ -20,7 +21,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @RequestMapping("/retrieveById")
+    @RequestMapping(value ="/retrieveById", method = RequestMethod.GET)
     public Map<String, Object> getMemberById(@RequestParam(value="id", required = true) String id){
         logger.info("/member/retrieveById request arrived. id : " + id);
         Map<String, Object> response = new HashMap<String, Object>();
@@ -39,7 +40,7 @@ public class MemberController {
         return response;
     }
 
-    @RequestMapping("/retrieveByName")
+    @RequestMapping(value = "/retrieveByName", method = RequestMethod.GET)
     public Map<String, Object> getMemberByName(@RequestParam(value="name", required = true) String name){
         logger.info("/member/retrieveById request arrived. name : " + name);
         Map<String, Object> response = new HashMap<String, Object>();
@@ -58,7 +59,7 @@ public class MemberController {
         return response;
     }
 
-    @RequestMapping("/retrieveAll")
+    @RequestMapping(value = "/retrieveAll", method = RequestMethod.GET)
     public List<Member> getAllMembers(){
         logger.info("/member/retrieveAll request arrived.");
         Map<String, Object> response = new HashMap<String, Object>();
@@ -74,7 +75,7 @@ public class MemberController {
         }
     }
 
-    @RequestMapping("/insertMember")
+    @RequestMapping(method = RequestMethod.POST)
     public void insertMember(@RequestParam(value="id", required = true) String id,
                                         @RequestParam(value="name", required = true) String name){
         logger.info("/member/insertMember request arrived.");
@@ -82,7 +83,7 @@ public class MemberController {
         memberService.insertMember(memberTemp);
     }
 
-    @RequestMapping("/deleteMember")
+    @RequestMapping(method = RequestMethod.DELETE)
     public void deleteMember(@RequestParam(value="id", required = true) String id,
                              @RequestParam(value="name", required = true) String name){
         logger.info("/member/deleteMember request arrived.");
@@ -90,7 +91,7 @@ public class MemberController {
         memberService.deleteMember(memberTemp);
     }
 
-    @RequestMapping("/updateMember")
+    @RequestMapping(method = RequestMethod.PUT)
     public void updateMember(@RequestParam(value="id", required = true) String id,
                                      @RequestParam(value="name", required = true) String name){
         logger.info("/member/updateMember request arrived.");
