@@ -10,7 +10,7 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd ">
 
     <mvc:annotation-driven/>
-    <context:component-scan base-package="rest_api"/>
+    <context:component-scan base-package="rest_api.*.*"/>
 
     <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

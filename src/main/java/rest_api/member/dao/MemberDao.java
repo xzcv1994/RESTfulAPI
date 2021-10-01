@@ -1,11 +1,10 @@
-package rest_api.dao;
+package rest_api.member.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import rest_api.controller.MemberController;
-import rest_api.model.Member;
+import rest_api.member.vo.MemberVO;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -20,13 +19,13 @@ public class MemberDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Member> selectById(String id){
+    public List<MemberVO> selectById(String id){
         logger.info("selectById is called id : " + id);
 
-        List<Member> result = jdbcTemplate.query("select * from MEMBER where id = ?",
-                new RowMapper<Member>() {
-                    public Member mapRow(ResultSet rs, int i) throws SQLException {
-                        Member member = new Member(
+        List<MemberVO> result = jdbcTemplate.query("select * from MEMBER where id = ?",
+                new RowMapper<MemberVO>() {
+                    public MemberVO mapRow(ResultSet rs, int i) throws SQLException {
+                        MemberVO member = new MemberVO(
                                 rs.getString("ID"),
                                 rs.getString("NAME")
                         );
@@ -37,13 +36,13 @@ public class MemberDao {
         return result;
     }
 
-    public List<Member> selectByName(String name){
+    public List<MemberVO> selectByName(String name){
         logger.info("selectByName is called id : " + name);
 
-        List<Member> result = jdbcTemplate.query("SELECT * FROM MEMBER WHERE NAME = ?",
-                new RowMapper<Member>() {
-                    public Member mapRow(ResultSet rs, int i) throws SQLException {
-                        Member member = new Member(
+        List<MemberVO> result = jdbcTemplate.query("SELECT * FROM MEMBER WHERE NAME = ?",
+                new RowMapper<MemberVO>() {
+                    public MemberVO mapRow(ResultSet rs, int i) throws SQLException {
+                        MemberVO member = new MemberVO(
                                 rs.getString("ID"),
                                 rs.getString("NAME")
                         );
@@ -54,13 +53,13 @@ public class MemberDao {
         return result;
     }
 
-    public List<Member> selectAll(){
+    public List<MemberVO> selectAll(){
         logger.info("selectAll is called");
 
-        List<Member> result = jdbcTemplate.query("SELECT * FROM MEMBER",
-                new RowMapper<Member>() {
-                    public Member mapRow(ResultSet rs, int i) throws SQLException {
-                        Member member = new Member(
+        List<MemberVO> result = jdbcTemplate.query("SELECT * FROM MEMBER",
+                new RowMapper<MemberVO>() {
+                    public MemberVO mapRow(ResultSet rs, int i) throws SQLException {
+                        MemberVO member = new MemberVO(
                                 rs.getString("ID"),
                                 rs.getString("NAME")
                         );
@@ -71,17 +70,17 @@ public class MemberDao {
         return result;
     }
 
-    public void insertMember(Member member){
+    public void insertMember(MemberVO member){
         logger.info("insertMember is called id");
         jdbcTemplate.update("INSERT INTO MEMBER(ID, NAME) VALUES(?, ?)",member.getId(), member.getName());
     }
 
-    public void updateMember(Member member){
+    public void updateMember(MemberVO member){
         logger.info("updateMember is called id");
         jdbcTemplate.update("UPDATE MEMBER SET id = ?, NAME = ? WHERE ID = ?", member.getId(), member.getName(), member.getId());
     }
 
-    public void deleteMember(Member member){
+    public void deleteMember(MemberVO member){
         logger.info("deleteMember is called id");
         jdbcTemplate.update("DELETE FROM MEMBER WHERE ID = ?", member.getId());
     }

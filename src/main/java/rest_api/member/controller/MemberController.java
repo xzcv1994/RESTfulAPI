@@ -1,4 +1,4 @@
-package rest_api.controller;
+package rest_api.member.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import rest_api.model.Member;
-import rest_api.service.MemberService;
+import rest_api.member.service.MemberService;
+import rest_api.member.vo.MemberVO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +25,7 @@ public class MemberController {
     public Map<String, Object> getMemberById(@RequestParam(value="id", required = true) String id){
         logger.info("/member/retrieveById request arrived. id : " + id);
         Map<String, Object> response = new HashMap<String, Object>();
-        List<Member> member = memberService.getMemberByID(id);
+        List<MemberVO> member = memberService.getMemberByID(id);
 
         if(member.size() != 0){
             logger.info("/member/retrieveById result is not null");
@@ -44,7 +44,7 @@ public class MemberController {
     public Map<String, Object> getMemberByName(@RequestParam(value="name", required = true) String name){
         logger.info("/member/retrieveById request arrived. name : " + name);
         Map<String, Object> response = new HashMap<String, Object>();
-        List<Member> member = memberService.getMemberByName(name);
+        List<MemberVO> member = memberService.getMemberByName(name);
 
         if(member.size() != 0){
             logger.info("/member/retrieveByName result is not null");
@@ -60,10 +60,10 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/retrieveAll", method = RequestMethod.GET)
-    public List<Member> getAllMembers(){
+    public List<MemberVO> getAllMembers(){
         logger.info("/member/retrieveAll request arrived.");
         Map<String, Object> response = new HashMap<String, Object>();
-        List<Member> member = memberService.getAllMembers();
+        List<MemberVO> member = memberService.getAllMembers();
 
         if(member.size() != 0){
             logger.info("/member/retrieveAll result is not null");
@@ -79,7 +79,7 @@ public class MemberController {
     public void insertMember(@RequestParam(value="id", required = true) String id,
                                         @RequestParam(value="name", required = true) String name){
         logger.info("/member/insertMember request arrived.");
-        Member memberTemp = new Member(id, name);
+        MemberVO memberTemp = new MemberVO(id, name);
         memberService.insertMember(memberTemp);
     }
 
@@ -87,7 +87,7 @@ public class MemberController {
     public void deleteMember(@RequestParam(value="id", required = true) String id,
                              @RequestParam(value="name", required = true) String name){
         logger.info("/member/deleteMember request arrived.");
-        Member memberTemp = new Member(id, name);
+        MemberVO memberTemp = new MemberVO(id, name);
         memberService.deleteMember(memberTemp);
     }
 
@@ -95,7 +95,7 @@ public class MemberController {
     public void updateMember(@RequestParam(value="id", required = true) String id,
                                      @RequestParam(value="name", required = true) String name){
         logger.info("/member/updateMember request arrived.");
-        Member memberTemp = new Member(id, name);
+        MemberVO memberTemp = new MemberVO(id, name);
         memberService.updateMember(memberTemp);
     }
 }
