@@ -15,53 +15,44 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class MemberController {
     private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
     @Autowired
     private MemberService memberService;
 
-    @RequestMapping(value ="/retrieveById", method = RequestMethod.GET)
-    public Map<String, Object> getMemberById(@RequestParam(value="id", required = true) String id){
-        logger.info("/member/retrieveById request arrived. id : " + id);
+    @RequestMapping(method = RequestMethod.GET)
+    public Map<String, Object> getMember(@RequestParam(value="id", defaultValue = "") String id,
+                                             @RequestParam(value="name", defaultValue = "") String name){
+        MemberVO member = null;
         Map<String, Object> response = new HashMap<String, Object>();
-        List<MemberVO> member = memberService.getMemberByID(id);
 
-        if(member.size() != 0){
+        if(!"".equals(id)){
+            logger.info("retrieveById request arrived. id : " + id);
+            member = memberService.getMemberByID(id);
+        }
+        else if(!"".equals(name)){
+            logger.info("retrieveById request arrived. name : " + name);
+            member = memberService.getMemberByName(name);
+        }
+
+        if(member != null){
             logger.info("/member/retrieveById result is not null");
-            response.put("id", member.get(0).getId());
-            response.put("name", member.get(0).getName());
+            response.put("id", member.getId());
+            response.put("name", member.getName());
         }
         else{
             logger.info("/member/retrieveById result is null");
             response.put("id", null);
             response.put("name", null);
         }
+
         return response;
     }
 
-    @RequestMapping(value = "/retrieveByName", method = RequestMethod.GET)
-    public Map<String, Object> getMemberByName(@RequestParam(value="name", required = true) String name){
-        logger.info("/member/retrieveById request arrived. name : " + name);
-        Map<String, Object> response = new HashMap<String, Object>();
-        List<MemberVO> member = memberService.getMemberByName(name);
-
-        if(member.size() != 0){
-            logger.info("/member/retrieveByName result is not null");
-            response.put("id", member.get(0).getId());
-            response.put("name", member.get(0).getName());
-        }
-        else {
-            logger.info("/member/retrieveByName result is null");
-            response.put("id", null);
-            response.put("name", null);
-        }
-        return response;
-    }
-
-    @RequestMapping(value = "/retrieveAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<MemberVO> getAllMembers(){
-        logger.info("/member/retrieveAll request arrived.");
+        logger.info("retrieveAll request arrived.");
         Map<String, Object> response = new HashMap<String, Object>();
         List<MemberVO> member = memberService.getAllMembers();
 

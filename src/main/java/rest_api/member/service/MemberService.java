@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import rest_api.member.dao.MemberDao;
 import rest_api.member.mapper.MemberMapper;
 import rest_api.member.vo.MemberVO;
 
@@ -17,15 +16,15 @@ public class MemberService {
     @Autowired
     private MemberMapper memberMapper;
 
-    public List<MemberVO> getMemberByID(String id){
+    public MemberVO getMemberByID(String id){
         logger.info("getMemberByID is called id : " + id);
-        List<MemberVO> member = memberMapper.selectById(id);
+        MemberVO member = memberMapper.selectById(id);
         return member;
     }
 
-    public List<MemberVO> getMemberByName(String name){
+    public MemberVO getMemberByName(String name){
         logger.info("getMemberByName is called name : " + name);
-        List<MemberVO> member = memberMapper.selectByName(name);
+        MemberVO member = memberMapper.selectByName(name);
         return member;
     }
 
