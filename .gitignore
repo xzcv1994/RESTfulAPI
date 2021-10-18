@@ -1,5 +1,5 @@
 # Default ignored files
-/workspace.xml
+/.idea/workspace.xml
 
 # Created by https://www.gitignore.io/api/git,java,maven,windows,eclipse
 # Edit at https://www.gitignore.io/?templates=git,java,maven,windows,eclipse
@@ -150,5 +150,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+#intellij
+.idea
+spring-restful-api.iml
+springrestfulapi.iml
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse
