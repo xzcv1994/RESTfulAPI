@@ -16,7 +16,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-.target/
+
 
 # ignore properties file
 config.properties
@@ -155,5 +155,6 @@ $RECYCLE.BIN/
 .idea
 spring-restful-api.iml
 springrestfulapi.iml
+target/
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse
