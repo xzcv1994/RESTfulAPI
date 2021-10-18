@@ -89,5 +89,4 @@ public class MemberController {
         MemberVO memberTemp = new MemberVO(id, name);
         memberService.updateMember(memberTemp);
     }
-
 }
